@@ -18,7 +18,14 @@ No additional community plugin was necessary for the implemented workflow. Exist
 
 Core file recovery, templates, daily notes, bookmarks, properties and existing navigation features are sufficient for this first system. Existing Sync/Publish settings were not newly enabled or connected to any account. No vault content was uploaded by a new integration.
 
-A spaced-repetition plugin may be useful later if manual review becomes burdensome; choose it only after checking current maintenance, compatibility, source, privacy, storage portability and actual review needs. Plugins execute with significant user access, not a guaranteed sandbox. More plugins are not evidence of better learning.
+### Backup policy
+
+- `.obsidian/community-plugins.json` is tracked, so a clone records which plugins were enabled and in what order. `.obsidian/plugins/` itself is ignored: plugin binaries and their data are not versioned.
+- Plugin versions are pinned in prose here rather than in the repository. On restore, install the listed versions and reconfigure settings by hand; plugin settings, snippets owned by plugins and their caches are not backed up.
+- Notes, templates, `.obsidian/app.json` and `attachments/` are tracked. Workspace layout, themes and cache files are disposable.
+- A plugin is still executable code with significant user access, not a sandbox. More plugins are not evidence of better learning.
+
+A spaced-repetition plugin may be useful later if manual review becomes burdensome; choose it only after checking current maintenance, compatibility, source, privacy, storage portability and actual review needs.
 
 ## Reload and verification
 

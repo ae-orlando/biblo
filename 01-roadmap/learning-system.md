@@ -5,7 +5,10 @@
 | Location | Purpose |
 | --- | --- |
 | `00-start-here.md` | Entry point |
+| `00-inbox/` | Untriaged capture notes; move them once they have a home |
 | `01-roadmap/` | Sequence, diagnostics, assessment, progress and maintenance |
+| `01-roadmap/evidence/` | Dated evidence notes linked from [[learning-evidence]] |
+| `01-roadmap/reviews/` | Dated retrieval and review notes linked from [[study-and-review]] |
 | `02-notes/` | Concepts and reusable reference |
 | `03-exercises/<track>/<lab>/` | Specifications, starter files, checks, fixtures, hints and learner `work/` |
 | `04-projects/` | Requirements and capstones; project implementation locations are explicit |
@@ -13,7 +16,8 @@
 | `06-journal/` | Daily logs in year folders and weekly reviews; dated experience, error analysis and evidence |
 | `07-solutions/<lab-id>/` | Reference code and explanations; read after attempting |
 | `90-tools/` | Authored launchers and validators |
-| `99-templates/` | Templates for different note types |
+| `99-templates/` | Eight templates for different note types |
+| `attachments/` | Vault attachment home for image embeds |
 | `.practice-runtime/` | Disposable test artifacts and the isolated PostgreSQL cluster |
 | `.tools/` | Optional vault-local tool installations |
 | `.vault-backups/` | Recovery snapshots, outside normal note navigation |

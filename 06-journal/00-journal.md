@@ -1,6 +1,6 @@
 ---
 type: navigation
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 
 # Journal
@@ -15,6 +15,8 @@ Raw experience lives here. Durable lessons get promoted out of the journal; the 
 | Weekly | `06-journal/YYYY/YYYY-Www.md` e.g. `2026-W47.md` (week 47 of 2026) | [[journal-weekly]] | Last session of the week |
 
 The core Daily Notes plugin creates the daily note in the current year folder. Create the weekly note manually in the same year folder and insert [[journal-weekly]] with Templates.
+
+From Neovim, `:Journal` and `:Weekly` (equivalently `python3 90-tools/notes.py daily|weekly`) apply the same templates immediately; `:Journal` does not depend on the Obsidian plugin. Existing notes are opened, never overwritten.
 
 ## Rules
 

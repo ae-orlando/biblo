@@ -1,6 +1,6 @@
 ---
 type: navigation
-updated: 2026-11-18
+updated: 2026-11-19
 ---
 
 # Start here — learn by producing evidence
@@ -46,6 +46,24 @@ python3 90-tools/practice.py check py-basics
 ```
 
 An unfinished starter should fail. Fix one cause at a time. Then change a requirement and explain the consequences. Do not count a copied reference solution as passing independently.
+
+## Capture and templates
+
+Use one factory so paths and frontmatter stay consistent:
+
+```bash
+python3 90-tools/notes.py daily
+python3 90-tools/notes.py capture "Idea worth keeping"
+note "Idea worth keeping"          # shell helper: create and edit
+```
+
+In Neovim, `<leader>mj` opens today's journal, `<leader>mn` captures an inbox
+note, and `<leader>mt` creates a concept, project, evidence or review note.
+`:VCheck` runs the vault check.
+
+Eight templates live in `99-templates/`: `note`, `concept`, `lab`, `project`,
+`daily`, `journal-weekly`, `evidence` and `review`. New material starts in
+`00-inbox/`; attachments live in `attachments/`.
 
 ## Working rules
 

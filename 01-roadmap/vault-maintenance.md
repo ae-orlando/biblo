@@ -31,6 +31,34 @@ The helper manages only `.practice-runtime/postgres/`, with a private Unix socke
 
 Stop it after practice. There is intentionally no blanket reset/delete command. Preserve any learner-created scratch database you want before choosing to rebuild disposable runtime data. Never “clean up” by deleting a guessed /var/lib/postgres path or connecting to the default socket.
 
+## Git history and remote
+
+The vault is a Git repository on `main`, pushed to the private remote
+`ae-orlando/biblo`. A note session ends with `vcheck`, then a focused commit;
+there is no timer, background daemon or automatic push.
+
+Tracked: notes, templates, `.obsidian/app.json`, the core-plugin list in
+`.obsidian/community-plugins.json`, and `attachments/`.
+Ignored: `.obsidian/plugins/`, themes, workspace/cache JSON, `.tools/`,
+`.practice-runtime/`, `.vault-backups/` and Python caches.
+
+Restore or verify from a fresh clone:
+
+```bash
+git clone git@github.com:ae-orlando/biblo.git /tmp/opencode/notes-clone
+cd /tmp/opencode/notes-clone
+python3 90-tools/check-vault.py
+ls 99-templates          # eight templates, including note.md
+ls attachments           # migrated image embeds
+test -f .obsidian/community-plugins.json
+test ! -d .obsidian/plugins
+```
+
+A clone is a recovery starting point, not an automatic merge: inspect
+differences and preserve newer local work before restoring files. Plugin
+settings themselves are not in Git; reinstall the versions recorded in
+[[obsidian-workflow]] and configure them again.
+
 ## Recover original content
 
 The pre-change snapshot and its manifest are in `.vault-backups/`. `verify-backup.py` compares archive bytes and archived regular-file hashes with the recorded baseline; it does not compare rewritten current notes or restore anything.
