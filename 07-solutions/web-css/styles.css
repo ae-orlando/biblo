@@ -1,0 +1,17 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #f8fafc; color: #0f172a; font: 1rem/1.6 system-ui, sans-serif; }
+.page { width: min(calc(100% - 2rem), 70rem); margin-inline: auto; padding-block: 1.5rem; }
+h1 { font-size: clamp(2rem, 4vw, 2.5rem); line-height: 1.2; }
+h1, h2, p { overflow-wrap: anywhere; }
+label { display: block; }
+input, button { font: inherit; min-height: 44px; }
+input { width: 100%; min-width: 0; padding: 0.5rem; border: 1px solid #475569; }
+button { padding: 0.5rem 1rem; background: #164e63; color: #fff; border: 0; border-radius: 0.25rem; }
+:focus-visible { outline: 3px solid #9a3412; outline-offset: 3px; }
+.filters { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; margin-block: 2rem; }
+.filters > div { flex: 1 1 14rem; min-width: 0; }
+.cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+.card { min-width: 0; padding: 1.25rem; border: 1px solid #94a3b8; border-radius: 0.5rem; background: #fff; }
+.card h2 { margin-block-start: 0; }
+@media (min-width: 42rem) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 65rem) { .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

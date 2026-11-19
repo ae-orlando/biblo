@@ -1,0 +1,30 @@
+- Install Fonts for libre office
+- How to take advantage of direnv
+- Deeper Mtugen understanding.
+- how to name backup files. what is the actuan extension?
+- `!!` in js
+- How to use conditionals in `while loops`
+- what is  mjs
+- Awww daemon
+- Set bias on kitty.
+- psql workflow
+- What can postgress do that the other users can't. 
+- Should i create a root for my user in postgres
+- Remove my pager.
+- Fix prompt
+- Command color.
+- Its like blue is mappd to green. in my teminal. why?
+- Why is it that in my color palate th some bg colors in the matugen.css in waybar have no color at all (bg0 tru bg4)
+- Formater fo css
+- Difference between aqua and yellow
+- MATUGEN mechanism
+- What does teh $schema do in most json configs.
+- Contextual ligature in kitty
+- What `Qtct` does
+- How the include themes/matugen.conf work in kitty
+- Why are shell colors saved with `.sh` extenssion?
+- What does .cache do?
+- Configuring man
+- What does network manager suporting terse output mean?
+- What is the difference
+- What is the difference between layout `splits` and `tall` in kitty

@@ -1,0 +1,2 @@
+-- Define transfer(source_id bigint, target_id bigint, amount bigint) RETURNS void.
+-- Reject invalid transfers and lock rows consistently. See README.md.

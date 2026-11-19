@@ -1,0 +1,9 @@
+.trash/
+.obsidian/plugins/
+.obsidian/themes/
+.obsidian/workspace*.json
+.obsidian/cache/
+.vault-backups/
+.practice-runtime/
+.tools/
+.DS_Store

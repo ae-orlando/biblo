@@ -1,0 +1,2 @@
+-- Implement the users, profiles and login_events schema from README.md.
+-- Run checks against your workspace, not this starter directory.

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workshop registration</title>
+</head>
+<body>
+  <a href="#main">Skip to content</a>
+  <header><p>Learning workshop — fake data only</p></header>
+  <main id="main" tabindex="-1">
+    <h1>Workshop registration</h1>
+    <p>This local exercise previews your form. Do not enter real personal information.</p>
+    <img src="/schedule.svg" width="320" height="80" alt="">
+    <section aria-labelledby="schedule">
+      <h2 id="schedule">Available sessions</h2>
+      <table>
+        <caption>Session schedule</caption>
+        <thead><tr><th scope="col">Session</th><th scope="col">Time</th></tr></thead>
+        <tbody><tr><th scope="row">Morning</th><td>09:00</td></tr><tr><th scope="row">Evening</th><td>18:00</td></tr></tbody>
+      </table>
+    </section>
+    <section aria-labelledby="registration">
+      <h2 id="registration">Your training registration</h2>
+      <form action="/preview" method="post">
+        <p><label for="name">Full name</label><input id="name" name="name" autocomplete="name" required></p>
+        <p><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></p>
+        <p><label for="track">Track</label><select id="track" name="track" required><option value="">Choose a track</option><option value="python">Python</option><option value="web">Web foundations</option></select></p>
+        <fieldset>
+          <legend>Session preference</legend>
+          <label for="morning"><input id="morning" name="session" value="morning" type="radio" required>Morning</label>
+          <label for="evening"><input id="evening" name="session" value="evening" type="radio">Evening</label>
+        </fieldset>
+        <p><label for="terms"><input id="terms" name="terms" value="agreed" type="checkbox" required>I agree to the training terms</label></p>
+        <button type="submit">Register</button>
+      </form>
+    </section>
+  </main>
+  <footer><p>This is not a real registration service.</p></footer>
+</body>
+</html>

@@ -1,0 +1,3 @@
+-- Migrate contacts.email: canonicalize existing values, then require unique,
+-- non-null, non-empty, trimmed lowercase values. Preserve rows and IDs.
+-- All changes must roll back if existing data cannot satisfy the new invariant.

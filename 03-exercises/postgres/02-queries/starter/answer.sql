@@ -1,0 +1,2 @@
+-- Define user_summary, never_logged_in and latest_logins views.
+-- Table definitions and seed records are in ../fixtures.sql.

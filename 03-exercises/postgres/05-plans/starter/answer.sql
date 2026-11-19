@@ -1,0 +1,2 @@
+-- Add the events_recent_login partial composite index described in README.md.
+-- Do not change fixture rows or disable planner methods.

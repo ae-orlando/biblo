@@ -1,0 +1,3 @@
+-- The checker passes psql identifier variables :"reader" and :"database".
+-- Create the non-login reader role and grant only connection/schema/read access.
+-- Include SELECT privileges for future tables created by the current owner.
