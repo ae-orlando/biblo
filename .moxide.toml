@@ -1,0 +1,10 @@
+new_file_folder_path = "00-inbox"
+
+excluded_folders = [
+  ".obsidian",
+  ".practice-runtime",
+  ".tools",
+  ".trash",
+  ".vault-backups",
+  "Excalidraw",
+]

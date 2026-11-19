@@ -33,6 +33,16 @@ Review with one closed-note mechanism explanation and one small application or d
 
 Use `99-templates/review.md` or a plain checkbox with a date. No plugin is required. Review overdue items when useful; do not let a queue displace actual practice.
 
+## Review notes
+
+Scheduled and ad-hoc reviews live in `01-roadmap/reviews/`. Create one with
+`:New review` in Neovim or `python3 90-tools/notes.py review "Title"`; the
+factory renders `99-templates/review.md` into `YYYY-MM-DD-<slug>.md`.
+
+Name the reviewed topic and the retrieval date in the note. Record what was
+recalled cold, what needed a hint, and the next interval. Use
+[[learning-evidence]] when the review produces a durable artifact worth citing.
+
 ## Track checkpoint
 
 Complete the track's cumulative task; save the artifact path, check result, manual evidence, bug caught, design explanation and changed requirement. Then choose “independent,” “with help,” “needs review,” or “not assessed.” An authored curriculum or passing reference suite is never learner evidence.

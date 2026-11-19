@@ -2,6 +2,8 @@
 type: project
 status: idea
 created: "{{date}}"
+repo:
+remote:
 ---
 
 # {{title}}
