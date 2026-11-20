@@ -58,10 +58,10 @@ note "Idea worth keeping"          # shell helper: create and edit
 ```
 
 In Neovim, `<leader>mj` opens today's journal, `<leader>mn` captures an inbox
-note, and `<leader>mt` creates a concept, project, evidence or review note.
+note, and `<leader>mt` creates a concept, exercise, solution, project, evidence or review note.
 `:VCheck` runs the vault check.
 
-Eight templates live in `99-templates/`: `note`, `concept`, `lab`, `project`,
+Ten templates live in `99-templates/`: `note`, `concept`, `exercise`, `solution`, `lab`, `project`,
 `daily`, `journal-weekly`, `evidence` and `review`. New material starts in
 `00-inbox/`; attachments live in `attachments/`.
 

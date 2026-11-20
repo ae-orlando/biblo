@@ -79,7 +79,8 @@ def format_moment(template: str, day: date, now: datetime) -> str:
     return "".join(output)
 
 
-def render_template(text: str, title: str, day: date, now: datetime, source: Path) -> str:
+def render_template(text: str, title: str, day: date, now: datetime, source: Path, context: dict | None = None) -> str:
+    context = context or {}
     def replace(match: re.Match[str]) -> str:
         token = match.group(1).strip()
         if token == "title":
@@ -90,6 +91,9 @@ def render_template(text: str, title: str, day: date, now: datetime, source: Pat
             return now.strftime("%H:%M")
         if token.startswith("date:"):
             return format_moment(token[5:], day, now)
+        # Additional context tokens
+        if token in context:
+            return str(context[token])
         raise NotesError(f"unknown template token {{" + token + "}} in " + str(source))
 
     rendered = re.sub(r"\{\{([^{}]+)\}\}", replace, text)
@@ -158,7 +162,9 @@ def build_parser() -> argparse.ArgumentParser:
             "  concept  02-notes/<track>/<slug>.md\n"
             "  evidence 01-roadmap/evidence/YYYY-MM-DD-<slug>.md\n"
             "  review   01-roadmap/reviews/YYYY-MM-DD-<slug>.md\n"
-            "  project  04-projects/<slug>.md"
+            "  project  04-projects/<slug>.md\n"
+            "  exercise 03-exercises/<track>/<concept>-ex-<NN>.md\n"
+            "  solution 07-solutions/<track>/<problem>-solution.md"
         ),
     )
     parser.add_argument("--root", type=Path, default=None, help="vault root override")
@@ -195,39 +201,51 @@ def build_parser() -> argparse.ArgumentParser:
     project.add_argument("title", nargs="*")
     add_common(project)
 
+    exercise = subparsers.add_parser("exercise", help="create an exercise note")
+    exercise.add_argument("--track", required=True, help="track folder under 03-exercises/")
+    exercise.add_argument("--concept", required=True, help="concept name for exercise")
+    exercise.add_argument("--index", type=int, help="exercise number (auto-increment if omitted)")
+    add_common(exercise)
+
+    solution = subparsers.add_parser("solution", help="create a solution note")
+    solution.add_argument("--track", required=True, help="track folder under 07-solutions/")
+    solution.add_argument("--problem", required=True, help="problem slug for solution")
+    add_common(solution)
+
     return parser
 
 
-def target_for(args: argparse.Namespace, root: Path, day: date) -> tuple[Path, str, str]:
+def target_for(args: argparse.Namespace, root: Path, day: date) -> tuple[Path, str, str, dict]:
+    context: dict = {}
     if args.command == "capture":
         title = " ".join(args.title).strip()
         if not title:
             raise NotesError("capture needs a non-empty title")
-        return root / "00-inbox" / f"{day.isoformat()}-{slugify(title)}.md", title, "note"
+        return root / "00-inbox" / f"{day.isoformat()}-{slugify(title)}.md", title, "note", context
 
     if args.command == "daily":
         weekday = calendar.day_name[day.weekday()]
         target = root / "06-journal" / str(day.year) / f"{day.isoformat()}-{weekday}.md"
-        return target, f"{day.isoformat()} {weekday}", "daily"
+        return target, f"{day.isoformat()} {weekday}", "daily", context
 
     if args.command == "weekly":
         iso = day.isocalendar()
         week = f"{iso.year}-W{iso.week:02d}"
-        return root / "06-journal" / str(iso.year) / f"{week}.md", week, "journal-weekly"
+        return root / "06-journal" / str(iso.year) / f"{week}.md", week, "journal-weekly", context
 
     if args.command == "evidence":
         title = " ".join(args.title).strip()
         if not title:
             raise NotesError("evidence needs a non-empty title")
         target = root / "01-roadmap" / "evidence" / f"{day.isoformat()}-{slugify(title)}.md"
-        return target, title, "evidence"
+        return target, title, "evidence", context
 
     if args.command == "review":
         title = " ".join(args.title).strip()
         if not title:
             raise NotesError("review needs a non-empty title")
         target = root / "01-roadmap" / "reviews" / f"{day.isoformat()}-{slugify(title)}.md"
-        return target, title, "review"
+        return target, title, "review", context
 
     if args.command == "concept":
         title = " ".join(args.title).strip()
@@ -245,7 +263,8 @@ def target_for(args: argparse.Namespace, root: Path, day: date) -> tuple[Path, s
                 else "none"
             )
             raise NotesError(f"unknown track {track!r}; available: {available}")
-        return track_dir / f"{slugify(title)}.md", title, "concept"
+        context["track"] = track
+        return track_dir / f"{slugify(title)}.md", title, "concept", context
 
     if args.command == "project":
         title = " ".join(args.title).strip()
@@ -261,7 +280,53 @@ def target_for(args: argparse.Namespace, root: Path, day: date) -> tuple[Path, s
             slug = slugify(title)
         if not title:
             raise NotesError("project needs a non-empty title")
-        return root / "04-projects" / f"{slug}.md", title, "project"
+        return root / "04-projects" / f"{slug}.md", title, "project", context
+
+    if args.command == "exercise":
+        track = args.track.strip()
+        concept = args.concept.strip()
+        concept_slug = slugify(concept)
+        track_dir = root / "03-exercises" / track
+        track_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Auto-increment index if not provided
+        if args.index is not None:
+            index = args.index
+        else:
+            # Find existing exercises for this track/concept
+            pattern = f"{concept_slug}-ex-*.md"
+            existing = list(track_dir.glob(pattern))
+            if existing:
+                indices = []
+                for path in existing:
+                    match = re.search(r'-ex-(\d+)\.md$', path.name)
+                    if match:
+                        indices.append(int(match.group(1)))
+                index = max(indices) + 1 if indices else 1
+            else:
+                index = 1
+        
+        filename = f"{concept_slug}-ex-{index:02d}.md"
+        target = track_dir / filename
+        title = f"{concept} Exercise {index}"
+        context["track"] = track
+        context["concept"] = concept
+        context["index"] = f"{index:02d}"
+        return target, title, "exercise", context
+
+    if args.command == "solution":
+        track = args.track.strip()
+        problem = args.problem.strip()
+        problem_slug = slugify(problem)
+        track_dir = root / "07-solutions" / track
+        track_dir.mkdir(parents=True, exist_ok=True)
+        
+        filename = f"{problem_slug}-solution.md"
+        target = track_dir / filename
+        title = f"{problem} Solution"
+        context["track"] = track
+        context["problem"] = problem
+        return target, title, "solution", context
 
     raise NotesError(f"unknown command: {args.command}")
 
@@ -270,7 +335,7 @@ def run(args: argparse.Namespace) -> int:
     root = (args.root or DEFAULT_ROOT).expanduser().resolve()
     now = datetime.now()
     day = getattr(args, "date", None) or now.date()
-    target, title, template_name = target_for(args, root, day)
+    target, title, template_name, context = target_for(args, root, day)
 
     if not args.dry_run:
         if target.exists():
@@ -281,7 +346,7 @@ def run(args: argparse.Namespace) -> int:
         if not template_path.is_file():
             raise NotesError(f"missing template: {template_path}")
         text = template_path.read_text(encoding="utf-8")
-        rendered = render_template(text, title, day, now, template_path)
+        rendered = render_template(text, title, day, now, template_path, context)
         if args.command == "project":
             rendered = fill_project_fields(rendered, args.repo)
 

@@ -22,12 +22,16 @@ NVIM_APPNAME=yoru nvim
 | Type | What it does | Advantage |
 |------|--------------|-----------|
 | **Capture** | Quick inbox entry with auto‑dated filename | Instant capture, never lose an idea |
-| **Journal: daily** | Opens `06-journal/YYYY/MM/DD‑dddd.md` (today + weekday) | One‑click daily reflection |
+| **Journal: daily** | Opens `06-journal/YYYY/YYYY‑MM‑DD‑dddd.md` (today + weekday) | One‑click daily reflection |
 | **Journal: weekly** | Opens `06-journal/YYYY/YYYY‑Www.md` (ISO week) | Fast weekly review |
 | **Concept** | Creates `02-notes/<track>/<slug>.md` using a concept template | Structured problem/mechanism/retrieval |
 | **Evidence** | Creates `01-roadmap/evidence/YYYY‑MM‑DD‑<slug>.md` | Claims with artifacts, verification table |
 | **Review** | Creates `01-roadmap/reviews/YYYY‑MM‑DD‑<slug>.md` | Closed‑note prompt, result tracking, next‑review date |
 | **Project** (`<leader>mp` [‑‑repo <path>]) | Creates `04-projects/<slug>.md`; optional `repo:`/`remote:` front‑matter | Project doc that pulls in git info automatically |
+| **Exercise** | Creates `03-exercises/<track>/<concept>‑ex‑NN.md` | Structured practice with auto-incrementing index |
+| **Solution** | Creates `07-solutions/<track>/<problem>‑solution.md` | Reference solutions with contract/explanation |
+
+**Note:** Do not repeat the parent folder name in the filename. For example, evidence files go in `01-roadmap/evidence/` with filenames like `2026-11-20-benchmark-results.md`, not `evidence/2026-11-20-...`.
 
 ### Opening in Obsidian
 - `<leader>mo` sends `obsidian://open?vault=Notes&file=<relative>` – jump from Neovim to Obsidian (or vice‑versa).
